@@ -4,7 +4,7 @@ class Cat < ApplicationRecord
   include ActionView::Helpers::DateHelper
 
   # .freeze renders a constant immutable.
-  CAT_COLORS = %w(black white orange brown).freeze
+  CAT_COLORS = %w(black white grey orange brown).freeze
 
   validates :color, inclusion: CAT_COLORS
   validates :sex, inclusion: %w(M F)
@@ -22,4 +22,7 @@ class Cat < ApplicationRecord
   def age
     time_ago_in_words(birth_date)
   end
+
+  has_many :objects, class_name: "object", foreign_key: "reference_id"  
+  
 end

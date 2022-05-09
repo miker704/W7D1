@@ -13,7 +13,11 @@
   <% end %>
 </table>
 
-<a href="<%= edit_cat_url(@cat) %>">Edit <%= @cat.name %></a>
+
+<% if !current_user.nil? && current_user.cats.where('id = (?)', @cat.id).exists? %>
+    <a href="<%= edit_cat_url(@cat) %>">Edit <%= @cat.name %></a>
+<% end %>
+
 
 
 <table>
@@ -34,9 +38,9 @@
             <tr>
                 <td>    <%=rental.start_date.to_s%>    </td>
                 <td>    <%=rental.end_date.to_s%>    </td>
-                <td>  <%= User.find(rental.requester_id) %> </td>
+                <td>  <%= User.find(rental.requester_id).user_name %> </td>
                 <td>   <%=rental.status%>    </td>
-                <%if rental.status == 'PENDING' && current_user.cats.where('id = (?)', @cat.id).exists? %>
+                <%if rental.status == 'PENDING' && !current_user.nil? && current_user.cats.where('id = (?)', @cat.id).exists? %>
                     <td>  
                         <form action="rent/<%=rental.id%>/approve" method='get'>
                             <p><input type="submit" value="APPROVE"></p>
@@ -52,6 +56,13 @@
         <% end %>
     </tbody>
 </table>
+
+
+<% if !current_user.nil? && !current_user.cats.where('id = (?)', @cat.id).exists?%>
+  <form action="rent/<%=@cat.id%>" method='get'>
+    <p><input type="submit" value="Rent this Cat"></p>
+  </form>
+<% end %>
 
 <%# <h2>Rental Requests</h2>
 <table>

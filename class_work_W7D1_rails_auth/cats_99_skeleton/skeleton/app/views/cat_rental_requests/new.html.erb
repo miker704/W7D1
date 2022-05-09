@@ -8,7 +8,7 @@
   <select name="cat_rental_request[cat_id]"
           id="cat_rental_request_cat_id">
     <option></option>
-    <% Cat.all.each do |cat| %>
+    <% Cat.where.not('owner_id = (?)', current_user.id).each do |cat| %>
       <% selected = @rental_request.cat_id == cat.id %>
       <option <%= selected ? "selected" : "" %>
               value="<%= cat.id %>">

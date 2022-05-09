@@ -3,6 +3,10 @@
 <html>
 
 <header>
+    
+    <h1><a href="<%= cats_url %>">All of our cats</a></h1>
+
+    
     <%if current_user %>
       <p><%= current_user.user_name %></p>      
     <% end %>
