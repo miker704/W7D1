@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+      before_action :require_current_user!, only: [:create, :new]
 
       def new
             render :new
@@ -17,11 +18,7 @@ class SessionsController < ApplicationController
       end
 
       def destroy
-
-            if current_user
-                  current_user.reset_session_token!
-                  session[:session_token]=nil
-            end
+            logout!
             redirect_to cats_url
       end
 

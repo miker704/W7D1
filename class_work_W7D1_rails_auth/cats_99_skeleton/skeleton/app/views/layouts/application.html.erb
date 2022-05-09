@@ -5,19 +5,24 @@
 <header>
     <%if current_user %>
       <p><%= current_user.user_name %></p>      
-    <% end%>
-    <%if current_user %>
-      
-      <form action="session_url" method= "post">
+    <% end %>
 
+    <%if current_user %>
+      <form action="<%=session_url%>" method= "post">
           <input type="hidden" name = "_method" value= "delete">
           <input type="submit" value="Log-out">
-
       </form>
-
-
+    <% else %>
+        <form action="<%=new_session_url%>" method= "get">
+            <%# <input type="hidden" name = "_method" value= "delete"> %>
+            <input type="submit" value="Log-in">
+        </form>
+        
+        <form action="<%=new_user_url%>" method= "get">
+            <%# <input type="hidden" name = "_method" value= "delete"> %>
+            <input type="submit" value="Sign-Up">
+        </form>
     <% end%>
-
 </header>
   <head>
     <title>NinetyNineCats</title>

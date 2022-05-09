@@ -7,6 +7,9 @@ Rails.application.routes.draw do
       post :deny
     end
   end
+  get 'cats/rent/:id', to: 'cat_rental_requests#new'
+  get 'cats/rent/:id/approve', to: 'cat_rental_requests#approve'
+  get 'cats/rent/:id/deny', to: 'cat_rental_requests#deny'
 
   resource :session, only: [:new, :create, :destroy]
   resources :users, only: [:new, :create, :show]
